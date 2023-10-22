@@ -1,12 +1,156 @@
-
+<!DOCTYPE html>
 <html lang="en">
-  <head>
+<!--
+    Author: Andrew Tolentino
+    Project: Matchmaker
+
+    All rights reserved
+-->
+<head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Matchmaker</title>
-  </head>
-  <body>
-    <h1>Matchmaker For The Web</h1>
-    <p>Version 3</p>
-  </body>
+    <link rel="stylesheet" href="Matchmaker.css">
+</head>
+
+<body>
+    <h1>Matchmaker</h1>
+    <p>Instructions...</p>
+   
+    <label>Spider-Man is the best super hero</label><br>
+        <select id="q1">
+            <option value="5">Strongly Agree</option>
+            <option value="4">Agree</option>
+            <option value="3">Neutral</option>
+            <option value="2">Disagree</option>
+            <option value="1">Strongly Disagree</option>
+        </select>
+
+    <br><br>
+
+    <label>The color yellow is ugly</label><br>
+        <select id="q2">
+            <option value="5">Strongly Agree</option>
+            <option value="4">Agree</option>
+            <option value="3">Neutral</option>
+            <option value="2">Disagree</option>
+            <option value="1">Strongly Disagree</option>
+        </select>
+        <br><br>
+        <label>Cats are better than dogs</label><br>
+        <select id="q3">
+            <option value="5">Strongly Agree</option>
+            <option value="4">Agree</option>
+            <option value="3">Neutral</option>
+            <option value="2">Disagree</option>
+            <option value="1">Strongly Disagree</option>
+        </select>
+        <br><br>
+        <label>Adidas are better than Nike</label><br>
+        <select id="q4">
+            <option value="5">Strongly Agree</option>
+            <option value="4">Agree</option>
+            <option value="3">Neutral</option>
+            <option value="2">Disagree</option>
+            <option value="1">Strongly Disagree</option>
+        </select>
+        <br><br>
+        <label>Soda Sucks</label><br>
+        <select id="q5">
+            <option value="5">Strongly Agree</option>
+            <option value="4">Agree</option>
+            <option value="3">Neutral</option>
+            <option value="2">Disagree</option>
+            <option value="1">Strongly Disagree</option>
+        </select>
+        <hr>
+    <br><br>
+    <button onclick="calculateCompatibility()">Calculate Compatibility</button>
+    <p id="compatibility"> </p>
+
+    <p id="message"></p>
+
+<script>
+console.log("Starting Matchmaker")
+
+function calculateCompatibility() {
+    console.log("calculateCompatibility()")
+
+    const DESIRED_RESPONSE = [
+        5, /* strongly agree */
+        5, /* strongly agree */
+        2, /* disagree */
+        1, /* strongly disagree */
+        4, /* agree */
+    ]
+
+    const MAX_SCORE = 25
+
+    let question1Response = document.getElementById("q1").selectedOptions[0].value;
+    let question2Response = document.getElementById("q2").selectedOptions[0].value;
+    let question3Response = document.getElementById("q3").selectedOptions[0].value;
+    let question4Response = document.getElementById("q4").selectedOptions[0].value;
+    let question5Response = document.getElementById("q5").selectedOptions[0].value;
+    
+    console.log("Question 1 Answers:");
+    console.log(document.getElementById("q1").selectedOptions[0].text);
+    console.log(document.getElementById("q1").selectedOptions[0].value);
+    console.log(question1Response);
+
+    console.log("Question 2 Answers:");
+    console.log(document.getElementById("q2").selectedOptions[0].text);
+    console.log(document.getElementById("q2").selectedOptions[0].value);
+    console.log(question2Response);
+
+    console.log("Question 3 Answers:");
+    console.log(document.getElementById("q3").selectedOptions[0].text);
+    console.log(document.getElementById("q3").selectedOptions[0].value);
+    console.log(question3Response);
+
+    console.log("Question 4 Answers:");
+    console.log(document.getElementById("q4").selectedOptions[0].text);
+    console.log(document.getElementById("q4").selectedOptions[0].value);
+    console.log(question4Response);
+
+    console.log("Question 5 Answers:");
+    console.log(document.getElementById("q5").selectedOptions[0].text);
+    console.log(document.getElementById("q5").selectedOptions[0].value);
+    console.log(question5Response);
+
+    let question1Compatibility = 5 - Math.abs(question1Response - DESIRED_RESPONSE[0]);
+    let question2Compatibility = 5 - Math.abs(question2Response - DESIRED_RESPONSE[1]);
+    let question3Compatibility = 5 - Math.abs(question3Response - DESIRED_RESPONSE[2]);
+    let question4Compatibility = 5 - Math.abs(question4Response - DESIRED_RESPONSE[3]);
+    let question5Compatibility = 5 - Math.abs(question5Response - DESIRED_RESPONSE[4]);
+
+    console.log("c1="+question1Compatibility);
+    console.log("c2="+question2Compatibility);
+    console.log("c3="+question3Compatibility);
+    console.log("c4="+question4Compatibility);
+    console.log("c5="+question5Compatibility);
+
+    let totalCompatibility = question1Compatibility + question2Compatibility + question3Compatibility + question4Compatibility + question5Compatibility;
+
+    totalCompatibility *= 100 / MAX_SCORE;
+    totalCompatibility = Math.round(totalCompatibility);
+    console.log("tc="+ totalCompatibility);
+
+    document.getElementById("compatibility").innerHTML = "Your compatibility is: "+totalCompatibility;
+
+    if (totalCompatibility >= 85) {
+        console.log("You're pretty cool");
+        document.getElementById("message").innerHTML = "You're pretty cool"
+    } else if (totalCompatibility >= 60) {
+        console.log("You're alright I guess")
+        document.getElementById("message").innerHTML = "You're alright I guess"
+    } else {
+        console.log("get out of here!") 
+        document.getElementById("message").innerHTML = "Get out of here!"
+    }
+
+}
+
+</script>
+</body>
+
+
 </html>
